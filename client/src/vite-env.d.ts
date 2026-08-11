@@ -54,4 +54,6 @@ declare module 'lucide-react' {
   export const Shield: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
   export const Palette: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
   export const Save: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Menu: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ArrowLeft: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
 }

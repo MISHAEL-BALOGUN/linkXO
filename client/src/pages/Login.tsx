@@ -15,6 +15,7 @@ export default function Login() {
     firstName: '',
     lastName: '',
   });
+  const isMobile = window.innerWidth < 768;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,52 +46,56 @@ export default function Login() {
       style={{
         minHeight: '100vh',
         display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
         background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #ffffff 100%)',
       }}
     >
       {/* Left Side - Branding */}
       <div
         style={{
-          flex: 1,
+          flex: isMobile ? 'none' : 1,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           background: 'linear-gradient(180deg, #166534 0%, #15803d 50%, #16a34a 100%)',
-          padding: '60px',
+          padding: isMobile ? '40px 24px' : '60px',
           color: '#ffffff',
+          minHeight: isMobile ? 'auto' : '100vh',
         }}
       >
         <div
           style={{
-            width: '80px',
-            height: '80px',
+            width: isMobile ? '60px' : '80px',
+            height: isMobile ? '60px' : '80px',
             background: '#ffffff',
-            borderRadius: '20px',
+            borderRadius: isMobile ? '16px' : '20px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: '24px',
           }}
         >
-          <Bot size={48} color="#16a34a" />
+          <Bot size={isMobile ? 36 : 48} color="#16a34a" />
         </div>
-        <h1 style={{ fontSize: '36px', fontWeight: 800, margin: 0, letterSpacing: '-1px' }}>
+        <h1 style={{ fontSize: isMobile ? '28px' : '36px', fontWeight: 800, margin: 0, letterSpacing: '-1px' }}>
           LinkXO
         </h1>
-        <p style={{ fontSize: '18px', opacity: 0.85, marginTop: '8px' }}>
+        <p style={{ fontSize: isMobile ? '14px' : '18px', opacity: 0.85, marginTop: '8px' }}>
           Intelligent Customer Support
         </p>
-        <div style={{ marginTop: '40px', textAlign: 'center', maxWidth: '320px' }}>
-          <p style={{ fontSize: '15px', opacity: 0.9, lineHeight: '1.7' }}>
-            AI-powered multilingual chatbot for seamless customer support across 10+ languages.
-          </p>
-        </div>
+        {!isMobile && (
+          <div style={{ marginTop: '40px', textAlign: 'center', maxWidth: '320px' }}>
+            <p style={{ fontSize: '15px', opacity: 0.9, lineHeight: '1.7' }}>
+              AI-powered multilingual chatbot for seamless customer support across 10+ languages.
+            </p>
+          </div>
+        )}
         <div
           style={{
             display: 'flex',
-            gap: '32px',
-            marginTop: '48px',
+            gap: isMobile ? '24px' : '32px',
+            marginTop: isMobile ? '24px' : '48px',
           }}
         >
           {[
@@ -99,7 +104,7 @@ export default function Login() {
             { label: '24/7', desc: 'Support' },
           ].map((stat, i) => (
             <div key={i} style={{ textAlign: 'center' }}>
-              <p style={{ fontSize: '28px', fontWeight: 700, margin: 0 }}>{stat.label}</p>
+              <p style={{ fontSize: isMobile ? '22px' : '28px', fontWeight: 700, margin: 0 }}>{stat.label}</p>
               <p style={{ fontSize: '12px', opacity: 0.7, margin: '4px 0 0' }}>{stat.desc}</p>
             </div>
           ))}
@@ -109,17 +114,17 @@ export default function Login() {
       {/* Right Side - Form */}
       <div
         style={{
-          width: '480px',
+          flex: isMobile ? 'none' : 1,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '60px',
+          padding: isMobile ? '32px 24px' : '60px',
           background: '#ffffff',
         }}
       >
         <div style={{ width: '100%', maxWidth: '360px' }}>
-          <h2 style={{ fontSize: '26px', fontWeight: 700, color: '#1f2937', margin: '0 0 8px' }}>
+          <h2 style={{ fontSize: isMobile ? '22px' : '26px', fontWeight: 700, color: '#1f2937', margin: '0 0 8px' }}>
             {isSignup ? 'Create Account' : 'Welcome Back'}
           </h2>
           <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '32px' }}>

@@ -14,6 +14,7 @@ import { articles } from '../data/mockData';
 
 export default function KnowledgeBase() {
   const { t } = useTranslation();
+  const isMobile = window.innerWidth < 768;
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedArticle, setSelectedArticle] = useState<typeof articles[0] | null>(null);
@@ -28,60 +29,103 @@ export default function KnowledgeBase() {
   });
 
   return (
-    <div style={{ animation: 'fadeIn 0.4s ease' }}>
+    <div style={{ animation: 'fadeIn 0.4s ease', padding: isMobile ? '16px' : undefined }}>
       {/* Header */}
-      <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
+      <div style={{ marginBottom: isMobile ? '20px' : '32px' }}>
+        <h1 style={{ fontSize: isMobile ? '20px' : '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
           {t('knowledge.title')}
         </h1>
-        <p style={{ color: '#6b7280', fontSize: '14px', marginTop: '4px' }}>
+        <p style={{ color: '#6b7280', fontSize: isMobile ? '12px' : '14px', marginTop: '4px' }}>
           Find answers and learn how to use our platform effectively.
         </p>
       </div>
 
-      <div style={{ display: 'flex', gap: '24px' }}>
-        {/* Sidebar - Categories */}
+      {/* Horizontal Tabs - Mobile Only */}
+      {isMobile && (
         <div
           style={{
-            width: '240px',
-            background: '#ffffff',
-            borderRadius: '14px',
-            padding: '20px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-            border: '1px solid #f3f4f6',
-            height: 'fit-content',
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            paddingBottom: '12px',
+            marginBottom: '20px',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
           }}
         >
-          <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1f2937', marginBottom: '12px' }}>
-            {t('knowledge.categories')}
-          </h3>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               style={{
-                width: '100%',
+                flexShrink: 0,
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
-                padding: '10px 12px',
-                borderRadius: '8px',
+                gap: '6px',
+                padding: '8px 14px',
+                borderRadius: '20px',
                 border: 'none',
-                background: selectedCategory === cat ? '#f0fdf4' : 'transparent',
-                color: selectedCategory === cat ? '#16a34a' : '#6b7280',
-                fontSize: '13px',
+                background: selectedCategory === cat ? '#22c55e' : '#f3f4f6',
+                color: selectedCategory === cat ? '#ffffff' : '#6b7280',
+                fontSize: '12px',
                 fontWeight: selectedCategory === cat ? 600 : 400,
                 cursor: 'pointer',
-                textAlign: 'left',
                 transition: 'all 0.2s',
+                whiteSpace: 'nowrap',
               }}
             >
-              <FileText size={16} />
+              <FileText size={14} />
               {cat}
-              {selectedCategory === cat && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
             </button>
           ))}
         </div>
+      )}
+
+      <div style={{ display: 'flex', gap: isMobile ? '0' : '24px' }}>
+        {/* Sidebar - Categories - Desktop Only */}
+        {!isMobile && (
+          <div
+            style={{
+              width: '240px',
+              background: '#ffffff',
+              borderRadius: '14px',
+              padding: '20px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              border: '1px solid #f3f4f6',
+              height: 'fit-content',
+            }}
+          >
+            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1f2937', marginBottom: '12px' }}>
+              {t('knowledge.categories')}
+            </h3>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: selectedCategory === cat ? '#f0fdf4' : 'transparent',
+                  color: selectedCategory === cat ? '#16a34a' : '#6b7280',
+                  fontSize: '13px',
+                  fontWeight: selectedCategory === cat ? 600 : 400,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <FileText size={16} />
+                {cat}
+                {selectedCategory === cat && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Main Content */}
         <div style={{ flex: 1 }}>
@@ -93,13 +137,13 @@ export default function KnowledgeBase() {
               gap: '10px',
               background: '#ffffff',
               borderRadius: '12px',
-              padding: '12px 18px',
-              marginBottom: '24px',
+              padding: isMobile ? '10px 14px' : '12px 18px',
+              marginBottom: isMobile ? '16px' : '24px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
               border: '1px solid #f3f4f6',
             }}
           >
-            <Search size={20} color="#9ca3af" />
+            <Search size={isMobile ? 16 : 20} color="#9ca3af" />
             <input
               type="text"
               value={searchQuery}
@@ -109,7 +153,7 @@ export default function KnowledgeBase() {
                 flex: 1,
                 border: 'none',
                 background: 'transparent',
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 color: '#374151',
                 outline: 'none',
               }}
@@ -120,8 +164,12 @@ export default function KnowledgeBase() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: selectedArticle ? '1fr 1fr' : 'repeat(3, 1fr)',
-              gap: '20px',
+              gridTemplateColumns: isMobile
+                ? '1fr'
+                : selectedArticle
+                ? '1fr 1fr'
+                : 'repeat(3, 1fr)',
+              gap: isMobile ? '12px' : '20px',
             }}
           >
             {filteredArticles.map((article) => (
@@ -130,8 +178,8 @@ export default function KnowledgeBase() {
                 onClick={() => setSelectedArticle(article)}
                 style={{
                   background: '#ffffff',
-                  borderRadius: '14px',
-                  padding: '24px',
+                  borderRadius: isMobile ? '10px' : '14px',
+                  padding: isMobile ? '16px' : '24px',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
                   border:
                     selectedArticle?.id === article.id
@@ -141,12 +189,16 @@ export default function KnowledgeBase() {
                   transition: 'all 0.2s',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.08)';
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.08)';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.06)';
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.06)';
+                  }
                 }}
               >
                 <div
@@ -154,15 +206,16 @@ export default function KnowledgeBase() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    marginBottom: '12px',
+                    marginBottom: isMobile ? '8px' : '12px',
+                    flexWrap: 'wrap',
                   }}
                 >
                   <div
                     style={{
-                      padding: '4px 10px',
+                      padding: '3px 8px',
                       borderRadius: '6px',
                       background: '#f0fdf4',
-                      fontSize: '11px',
+                      fontSize: isMobile ? '10px' : '11px',
                       fontWeight: 600,
                       color: '#16a34a',
                     }}
@@ -177,14 +230,16 @@ export default function KnowledgeBase() {
                   </div>
                 </div>
 
-                <h4 style={{ fontSize: '15px', fontWeight: 600, color: '#1f2937', margin: '0 0 8px' }}>
+                <h4 style={{ fontSize: isMobile ? '14px' : '15px', fontWeight: 600, color: '#1f2937', margin: '0 0 8px' }}>
                   {article.title}
                 </h4>
-                <p style={{ fontSize: '13px', color: '#6b7280', lineHeight: '1.5', margin: '0 0 16px' }}>
-                  {article.content.length > 120 ? article.content.slice(0, 120) + '...' : article.content}
+                <p style={{ fontSize: isMobile ? '12px' : '13px', color: '#6b7280', lineHeight: '1.5', margin: '0 0 16px' }}>
+                  {article.content.length > (isMobile ? 80 : 120)
+                    ? article.content.slice(0, isMobile ? 80 : 120) + '...'
+                    : article.content}
                 </p>
 
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: isMobile ? '12px' : '16px' }}>
                   {article.tags.map((tag) => (
                     <span
                       key={tag}
@@ -192,10 +247,10 @@ export default function KnowledgeBase() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '4px',
-                        padding: '3px 8px',
+                        padding: '2px 6px',
                         borderRadius: '4px',
                         background: '#f3f4f6',
-                        fontSize: '11px',
+                        fontSize: isMobile ? '10px' : '11px',
                         color: '#6b7280',
                       }}
                     >
@@ -228,9 +283,9 @@ export default function KnowledgeBase() {
           </div>
 
           {filteredArticles.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: '#9ca3af' }}>
-              <BookOpen size={48} color="#d1d5db" style={{ marginBottom: '16px' }} />
-              <p style={{ fontSize: '16px' }}>{t('knowledge.noResults')}</p>
+            <div style={{ textAlign: 'center', padding: isMobile ? '40px 0' : '60px 0', color: '#9ca3af' }}>
+              <BookOpen size={isMobile ? 36 : 48} color="#d1d5db" style={{ marginBottom: '16px' }} />
+              <p style={{ fontSize: isMobile ? '14px' : '16px' }}>{t('knowledge.noResults')}</p>
             </div>
           )}
         </div>
@@ -250,17 +305,19 @@ export default function KnowledgeBase() {
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
+            padding: isMobile ? '0' : undefined,
           }}
           onClick={() => setSelectedArticle(null)}
         >
           <div
             style={{
               background: '#ffffff',
-              borderRadius: '16px',
-              width: '640px',
-              maxHeight: '80vh',
+              borderRadius: isMobile ? '0' : '16px',
+              width: isMobile ? '100%' : '640px',
+              height: isMobile ? '100%' : undefined,
+              maxHeight: isMobile ? '100%' : '80vh',
               overflow: 'auto',
-              padding: '32px',
+              padding: isMobile ? '20px' : '32px',
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -269,15 +326,15 @@ export default function KnowledgeBase() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                marginBottom: '16px',
+                marginBottom: isMobile ? '12px' : '16px',
               }}
             >
               <div
                 style={{
-                  padding: '4px 10px',
+                  padding: '3px 8px',
                   borderRadius: '6px',
                   background: '#f0fdf4',
-                  fontSize: '12px',
+                  fontSize: isMobile ? '11px' : '12px',
                   fontWeight: 600,
                   color: '#16a34a',
                 }}
@@ -290,15 +347,15 @@ export default function KnowledgeBase() {
               </span>
             </div>
 
-            <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#1f2937', margin: '0 0 16px' }}>
+            <h2 style={{ fontSize: isMobile ? '18px' : '22px', fontWeight: 700, color: '#1f2937', margin: '0 0 16px' }}>
               {selectedArticle.title}
             </h2>
 
-            <p style={{ fontSize: '15px', color: '#4b5563', lineHeight: '1.7', margin: '0 0 24px' }}>
+            <p style={{ fontSize: isMobile ? '14px' : '15px', color: '#4b5563', lineHeight: '1.7', margin: '0 0 24px' }}>
               {selectedArticle.content}
             </p>
 
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '24px' }}>
               {selectedArticle.tags.map((tag) => (
                 <span
                   key={tag}
@@ -306,10 +363,10 @@ export default function KnowledgeBase() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '4px',
-                    padding: '4px 10px',
+                    padding: '3px 8px',
                     borderRadius: '6px',
                     background: '#f3f4f6',
-                    fontSize: '12px',
+                    fontSize: isMobile ? '11px' : '12px',
                     color: '#6b7280',
                   }}
                 >
@@ -322,8 +379,10 @@ export default function KnowledgeBase() {
             <div
               style={{
                 display: 'flex',
-                alignItems: 'center',
+                alignItems: isMobile ? 'flex-start' : 'center',
+                flexDirection: isMobile ? 'column' : 'row',
                 justifyContent: 'space-between',
+                gap: isMobile ? '12px' : undefined,
                 paddingTop: '16px',
                 borderTop: '1px solid #f3f4f6',
               }}
@@ -339,7 +398,7 @@ export default function KnowledgeBase() {
               <button
                 onClick={() => setSelectedArticle(null)}
                 style={{
-                  padding: '8px 20px',
+                  padding: isMobile ? '10px 24px' : '8px 20px',
                   borderRadius: '8px',
                   border: 'none',
                   background: '#f3f4f6',
@@ -347,6 +406,7 @@ export default function KnowledgeBase() {
                   fontSize: '13px',
                   fontWeight: 500,
                   cursor: 'pointer',
+                  width: isMobile ? '100%' : undefined,
                 }}
               >
                 Close

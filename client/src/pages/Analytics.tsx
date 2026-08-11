@@ -15,6 +15,7 @@ import { dashboardStats } from '../data/mockData';
 
 export default function Analytics() {
   const { t } = useTranslation();
+  const isMobile = window.innerWidth < 768;
 
   const metrics = [
     {
@@ -75,16 +76,18 @@ export default function Analytics() {
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
+          alignItems: isMobile ? 'flex-start' : 'center',
           justifyContent: 'space-between',
-          marginBottom: '32px',
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: isMobile ? '12px' : '0',
+          marginBottom: isMobile ? '20px' : '32px',
         }}
       >
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
+          <h1 style={{ fontSize: isMobile ? '22px' : '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
             {t('analytics.title')}
           </h1>
-          <p style={{ color: '#6b7280', fontSize: '14px', marginTop: '4px' }}>
+          <p style={{ color: '#6b7280', fontSize: isMobile ? '13px' : '14px', marginTop: '4px' }}>
             Track performance metrics and generate reports.
           </p>
         </div>
@@ -93,18 +96,19 @@ export default function Analytics() {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '10px 20px',
+            padding: isMobile ? '8px 16px' : '10px 20px',
             borderRadius: '10px',
             border: '1px solid #e5e7eb',
             background: '#ffffff',
             color: '#374151',
-            fontSize: '14px',
+            fontSize: isMobile ? '13px' : '14px',
             fontWeight: 500,
             cursor: 'pointer',
             transition: 'all 0.2s',
+            alignSelf: isMobile ? 'flex-end' : 'center',
           }}
         >
-          <Download size={18} />
+          <Download size={isMobile ? 16 : 18} />
           {t('analytics.export')}
         </button>
       </div>
@@ -113,9 +117,9 @@ export default function Analytics() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '20px',
-          marginBottom: '32px',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: isMobile ? '12px' : '20px',
+          marginBottom: isMobile ? '20px' : '32px',
         }}
       >
         {metrics.map((metric, i) => (
@@ -124,7 +128,7 @@ export default function Analytics() {
             style={{
               background: '#ffffff',
               borderRadius: '14px',
-              padding: '24px',
+              padding: isMobile ? '16px' : '24px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
               border: '1px solid #f3f4f6',
               transition: 'all 0.2s',
@@ -143,13 +147,13 @@ export default function Analytics() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: '16px',
+                marginBottom: isMobile ? '12px' : '16px',
               }}
             >
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
+                  width: isMobile ? '36px' : '44px',
+                  height: isMobile ? '36px' : '44px',
                   borderRadius: '12px',
                   background: metric.bg,
                   display: 'flex',
@@ -157,27 +161,29 @@ export default function Analytics() {
                   justifyContent: 'center',
                 }}
               >
-                <metric.icon size={22} color={metric.color} />
+                <metric.icon size={isMobile ? 18 : 22} color={metric.color} />
               </div>
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '4px',
-                  fontSize: '13px',
+                  fontSize: isMobile ? '12px' : '13px',
                   fontWeight: 600,
                   color: metric.isPositive ? '#16a34a' : '#ef4444',
                 }}
               >
-                {metric.isPositive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                {metric.isPositive ? <ArrowUpRight size={isMobile ? 12 : 14} /> : <ArrowDownRight size={isMobile ? 12 : 14} />}
                 {metric.change}
               </div>
             </div>
-            <p style={{ fontSize: '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
+            <p style={{ fontSize: isMobile ? '22px' : '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
               {metric.value}
             </p>
-            <p style={{ fontSize: '13px', color: '#9ca3af', marginTop: '4px' }}>{metric.label}</p>
-            <p style={{ fontSize: '11px', color: '#d1d5db', marginTop: '2px' }}>{metric.description}</p>
+            <p style={{ fontSize: isMobile ? '12px' : '13px', color: '#9ca3af', marginTop: '4px' }}>{metric.label}</p>
+            {!isMobile && (
+              <p style={{ fontSize: '11px', color: '#d1d5db', marginTop: '2px' }}>{metric.description}</p>
+            )}
           </div>
         ))}
       </div>
@@ -186,9 +192,9 @@ export default function Analytics() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '24px',
-          marginBottom: '32px',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '16px' : '24px',
+          marginBottom: isMobile ? '20px' : '32px',
         }}
       >
         {/* Weekly Activity */}
@@ -196,7 +202,7 @@ export default function Analytics() {
           style={{
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
@@ -206,15 +212,15 @@ export default function Analytics() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '24px',
+              marginBottom: isMobile ? '16px' : '24px',
             }}
           >
-            <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1f2937' }}>
+            <h3 style={{ fontSize: isMobile ? '14px' : '16px', fontWeight: 600, color: '#1f2937' }}>
               Weekly Activity
             </h3>
-            <BarChart3 size={18} color="#9ca3af" />
+            <BarChart3 size={isMobile ? 16 : 18} color="#9ca3af" />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '8px' : '12px' }}>
             {weeklyData.map((data) => (
               <div key={data.day} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span style={{ width: '32px', fontSize: '12px', color: '#9ca3af', textAlign: 'right' }}>
@@ -224,7 +230,7 @@ export default function Analytics() {
                   <div
                     style={{
                       width: `${(data.conversations / 200) * 100}%`,
-                      height: '24px',
+                      height: isMobile ? '20px' : '24px',
                       background: 'linear-gradient(90deg, #22c55e, #4ade80)',
                       borderRadius: '4px',
                       display: 'flex',
@@ -233,14 +239,14 @@ export default function Analytics() {
                       paddingRight: '8px',
                     }}
                   >
-                    <span style={{ fontSize: '11px', color: '#ffffff', fontWeight: 600 }}>
+                    <span style={{ fontSize: isMobile ? '10px' : '11px', color: '#ffffff', fontWeight: 600 }}>
                       {data.conversations}
                     </span>
                   </div>
                   <div
                     style={{
                       width: `${(data.resolved / 200) * 100}%`,
-                      height: '24px',
+                      height: isMobile ? '20px' : '24px',
                       background: 'linear-gradient(90deg, #bbf7d0, #dcfce7)',
                       borderRadius: '4px',
                       display: 'flex',
@@ -249,7 +255,7 @@ export default function Analytics() {
                       paddingRight: '8px',
                     }}
                   >
-                    <span style={{ fontSize: '11px', color: '#166534', fontWeight: 600 }}>
+                    <span style={{ fontSize: isMobile ? '10px' : '11px', color: '#166534', fontWeight: 600 }}>
                       {data.resolved}
                     </span>
                   </div>
@@ -274,7 +280,7 @@ export default function Analytics() {
           style={{
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
@@ -284,21 +290,21 @@ export default function Analytics() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '24px',
+              marginBottom: isMobile ? '16px' : '24px',
             }}
           >
-            <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1f2937' }}>
+            <h3 style={{ fontSize: isMobile ? '14px' : '16px', fontWeight: 600, color: '#1f2937' }}>
               {t('analytics.languageBreakdown')}
             </h3>
-            <Globe size={18} color="#9ca3af" />
+            <Globe size={isMobile ? 16 : 18} color="#9ca3af" />
           </div>
 
           {/* Pie Chart Visual */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '20px' : '32px', marginBottom: isMobile ? '16px' : '24px' }}>
             <div
               style={{
-                width: '140px',
-                height: '140px',
+                width: isMobile ? '120px' : '140px',
+                height: isMobile ? '120px' : '140px',
                 borderRadius: '50%',
                 background: `conic-gradient(
                   #22c55e 0deg 144deg,
@@ -311,12 +317,13 @@ export default function Analytics() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
               <div
                 style={{
-                  width: '90px',
-                  height: '90px',
+                  width: isMobile ? '78px' : '90px',
+                  height: isMobile ? '78px' : '90px',
                   borderRadius: '50%',
                   background: '#ffffff',
                   display: 'flex',
@@ -325,19 +332,19 @@ export default function Analytics() {
                   flexDirection: 'column',
                 }}
               >
-                <span style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>1,284</span>
+                <span style={{ fontSize: isMobile ? '16px' : '20px', fontWeight: 700, color: '#1f2937' }}>1,284</span>
                 <span style={{ fontSize: '10px', color: '#9ca3af' }}>Total</span>
               </div>
             </div>
 
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px', width: isMobile ? '100%' : 'auto' }}>
               {dashboardStats.languageDistribution.map((lang, i) => {
                 const colors = ['#22c55e', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#9ca3af'];
                 return (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: colors[i] }} />
-                    <span style={{ flex: 1, fontSize: '13px', color: '#374151' }}>{lang.language}</span>
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#1f2937' }}>{lang.percentage}%</span>
+                    <span style={{ flex: 1, fontSize: isMobile ? '12px' : '13px', color: '#374151' }}>{lang.language}</span>
+                    <span style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: 600, color: '#1f2937' }}>{lang.percentage}%</span>
                   </div>
                 );
               })}
@@ -351,7 +358,7 @@ export default function Analytics() {
         style={{
           background: '#ffffff',
           borderRadius: '14px',
-          padding: '24px',
+          padding: isMobile ? '16px' : '24px',
           boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
           border: '1px solid #f3f4f6',
         }}
@@ -361,23 +368,23 @@ export default function Analytics() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: '24px',
+            marginBottom: isMobile ? '16px' : '24px',
           }}
         >
-          <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1f2937' }}>
+          <h3 style={{ fontSize: isMobile ? '14px' : '16px', fontWeight: 600, color: '#1f2937' }}>
             {t('analytics.topIssues')}
           </h3>
-          <Activity size={18} color="#9ca3af" />
+          <Activity size={isMobile ? 16 : 18} color="#9ca3af" />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(auto-fill, minmax(140px, 1fr))' : 'repeat(5, 1fr)', gap: isMobile ? '10px' : '16px' }}>
           {dashboardStats.topIssues.map((issue, i) => {
             const colors = ['#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#6b7280'];
             return (
               <div
                 key={i}
                 style={{
-                  padding: '20px',
+                  padding: isMobile ? '14px' : '20px',
                   borderRadius: '12px',
                   border: `1px solid ${colors[i]}20`,
                   background: `${colors[i]}08`,
@@ -386,8 +393,8 @@ export default function Analytics() {
               >
                 <div
                   style={{
-                    width: '48px',
-                    height: '48px',
+                    width: isMobile ? '40px' : '48px',
+                    height: isMobile ? '40px' : '48px',
                     borderRadius: '12px',
                     background: `${colors[i]}15`,
                     display: 'flex',
@@ -396,14 +403,14 @@ export default function Analytics() {
                     margin: '0 auto 12px',
                   }}
                 >
-                  <span style={{ fontSize: '20px', fontWeight: 700, color: colors[i] }}>
+                  <span style={{ fontSize: isMobile ? '16px' : '20px', fontWeight: 700, color: colors[i] }}>
                     {i + 1}
                   </span>
                 </div>
-                <p style={{ fontSize: '13px', fontWeight: 600, color: '#1f2937', margin: '0 0 4px' }}>
+                <p style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: 600, color: '#1f2937', margin: '0 0 4px' }}>
                   {issue.issue}
                 </p>
-                <p style={{ fontSize: '22px', fontWeight: 700, color: colors[i], margin: '0 0 4px' }}>
+                <p style={{ fontSize: isMobile ? '18px' : '22px', fontWeight: 700, color: colors[i], margin: '0 0 4px' }}>
                   {issue.count}
                 </p>
                 <p style={{ fontSize: '11px', color: '#9ca3af', margin: 0 }}>{issue.percentage}% of total</p>

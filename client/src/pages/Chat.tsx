@@ -11,6 +11,7 @@ import {
   Globe,
   Bot,
   Headphones,
+  ArrowLeft,
 } from 'lucide-react';
 import { conversations, botResponses } from '../data/mockData';
 
@@ -39,6 +40,8 @@ export default function Chat() {
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isMobile = window.innerWidth < 768;
+  const [showConversationList, setShowConversationList] = useState(isMobile);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,7 +64,6 @@ export default function Chat() {
     setChatMessages((prev) => [...prev, newMsg]);
     setMessageInput('');
 
-    // Simulate AI response
     setIsTyping(true);
     setTimeout(() => {
       const category = detectCategory(messageInput);
@@ -96,31 +98,44 @@ export default function Chat() {
 
   const quickReplies = ['Track my order', 'Request a refund', 'Account help', 'Technical support'];
 
+  const handleSelectChat = (conv: typeof conversations[0]) => {
+    setSelectedChat(conv);
+    if (isMobile) {
+      setShowConversationList(false);
+    }
+  };
+
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 128px)', gap: '0', animation: 'fadeIn 0.4s ease' }}>
       {/* Conversations List */}
       <div
         style={{
-          width: '340px',
+          width: isMobile ? '100%' : '340px',
           background: '#ffffff',
-          borderRadius: '14px 0 0 14px',
+          borderRadius: isMobile ? '14px' : '14px 0 0 14px',
           border: '1px solid #e5e7eb',
           borderRight: 'none',
-          display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
+          display: (isMobile && !showConversationList) ? 'none' : 'flex',
+          position: isMobile ? 'absolute' : 'relative',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          zIndex: isMobile ? 10 : 'auto',
         }}
       >
         <div
           style={{
-            padding: '20px',
+            padding: isMobile ? '16px' : '20px',
             borderBottom: '1px solid #f3f4f6',
           }}
         >
-          <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1f2937', marginBottom: '12px' }}>
+          <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 700, color: '#1f2937', marginBottom: '12px' }}>
             {t('chat.title')}
           </h3>
-          <div style={{ display: 'flex', gap: '6px' }}>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             {['All', 'Active', 'Waiting', 'Resolved'].map((filter) => (
               <button
                 key={filter}
@@ -146,22 +161,16 @@ export default function Chat() {
           {conversations.map((conv) => (
             <div
               key={conv.id}
-              onClick={() => setSelectedChat(conv)}
+              onClick={() => handleSelectChat(conv)}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                padding: '14px 20px',
+                padding: isMobile ? '12px 16px' : '14px 20px',
                 cursor: 'pointer',
                 background: selectedChat.id === conv.id ? '#f0fdf4' : 'transparent',
                 borderLeft: selectedChat.id === conv.id ? '3px solid #22c55e' : '3px solid transparent',
                 transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                if (selectedChat.id !== conv.id) e.currentTarget.style.background = '#f9fafb';
-              }}
-              onMouseLeave={(e) => {
-                if (selectedChat.id !== conv.id) e.currentTarget.style.background = 'transparent';
               }}
             >
               <div
@@ -199,7 +208,7 @@ export default function Chat() {
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
-                      maxWidth: '180px',
+                      maxWidth: isMobile ? '140px' : '180px',
                     }}
                   >
                     {conv.lastMessage}
@@ -255,9 +264,9 @@ export default function Chat() {
         style={{
           flex: 1,
           background: '#ffffff',
-          display: 'flex',
           flexDirection: 'column',
           border: '1px solid #e5e7eb',
+          display: (isMobile && showConversationList) ? 'none' : 'flex',
         }}
       >
         {/* Chat Header */}
@@ -266,15 +275,33 @@ export default function Chat() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '16px 24px',
+            padding: isMobile ? '12px 16px' : '16px 24px',
             borderBottom: '1px solid #f3f4f6',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '12px' }}>
+            {isMobile && (
+              <button
+                onClick={() => setShowConversationList(true)}
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: '#f3f4f6',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+              >
+                <ArrowLeft size={16} color="#374151" />
+              </button>
+            )}
             <div
               style={{
-                width: '40px',
-                height: '40px',
+                width: isMobile ? '36px' : '40px',
+                height: isMobile ? '36px' : '40px',
                 borderRadius: '12px',
                 background: 'linear-gradient(135deg, #22c55e, #16a34a)',
                 display: 'flex',
@@ -288,7 +315,7 @@ export default function Chat() {
               {selectedChat.customerAvatar}
             </div>
             <div>
-              <h4 style={{ fontSize: '15px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
+              <h4 style={{ fontSize: isMobile ? '14px' : '15px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
                 {selectedChat.customerName}
               </h4>
               <p style={{ fontSize: '12px', color: '#22c55e', margin: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -297,35 +324,28 @@ export default function Chat() {
               </p>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            {[Phone, Video, UserPlus, Bot, MoreVertical].map((Icon, i) => (
-              <button
-                key={i}
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '8px',
-                  border: '1px solid #e5e7eb',
-                  background: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#f0fdf4';
-                  e.currentTarget.style.borderColor = '#bbf7d0';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.borderColor = '#e5e7eb';
-                }}
-              >
-                <Icon size={16} color="#6b7280" />
-              </button>
-            ))}
-          </div>
+          {!isMobile && (
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {[Phone, Video, UserPlus, Bot, MoreVertical].map((Icon, i) => (
+                <button
+                  key={i}
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e7eb',
+                    background: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Icon size={16} color="#6b7280" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Messages */}
@@ -333,10 +353,10 @@ export default function Chat() {
           style={{
             flex: 1,
             overflow: 'auto',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
+            gap: '12px',
             background: '#f9fafb',
           }}
         >
@@ -351,7 +371,7 @@ export default function Chat() {
             >
               <div
                 style={{
-                  maxWidth: '70%',
+                  maxWidth: '80%',
                   display: 'flex',
                   flexDirection: msg.sender === 'agent' ? 'row-reverse' : 'row',
                   gap: '8px',
@@ -361,9 +381,9 @@ export default function Chat() {
                 {msg.sender !== 'agent' && (
                   <div
                     style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '10px',
+                      width: '28px',
+                      height: '28px',
+                      borderRadius: '8px',
                       background:
                         msg.sender === 'bot'
                           ? 'linear-gradient(135deg, #22c55e, #16a34a)'
@@ -375,16 +395,16 @@ export default function Chat() {
                     }}
                   >
                     {msg.sender === 'bot' ? (
-                      <Bot size={16} color="#ffffff" />
+                      <Bot size={14} color="#ffffff" />
                     ) : (
-                      <Headphones size={16} color="#ffffff" />
+                      <Headphones size={14} color="#ffffff" />
                     )}
                   </div>
                 )}
                 <div>
                   <div
                     style={{
-                      padding: '12px 16px',
+                      padding: isMobile ? '10px 12px' : '12px 16px',
                       borderRadius: msg.sender === 'agent' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
                       background:
                         msg.sender === 'agent'
@@ -418,54 +438,39 @@ export default function Chat() {
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', padding: '0 8px' }}>
               <div
                 style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '10px',
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '8px',
                   background: 'linear-gradient(135deg, #22c55e, #16a34a)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
-                <Bot size={16} color="#ffffff" />
+                <Bot size={14} color="#ffffff" />
               </div>
               <div
                 style={{
                   background: '#ffffff',
-                  padding: '12px 16px',
+                  padding: '10px 14px',
                   borderRadius: '14px',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
                   display: 'flex',
                   gap: '4px',
                 }}
               >
-                <span
-                  style={{
-                    width: '6px',
-                    height: '6px',
-                    borderRadius: '50%',
-                    background: '#22c55e',
-                    animation: 'pulse 1s ease infinite',
-                  }}
-                />
-                <span
-                  style={{
-                    width: '6px',
-                    height: '6px',
-                    borderRadius: '50%',
-                    background: '#22c55e',
-                    animation: 'pulse 1s ease 0.2s infinite',
-                  }}
-                />
-                <span
-                  style={{
-                    width: '6px',
-                    height: '6px',
-                    borderRadius: '50%',
-                    background: '#22c55e',
-                    animation: 'pulse 1s ease 0.4s infinite',
-                  }}
-                />
+                {[0, 1, 2].map((i) => (
+                  <span
+                    key={i}
+                    style={{
+                      width: '5px',
+                      height: '5px',
+                      borderRadius: '50%',
+                      background: '#22c55e',
+                      animation: `pulse 1s ease ${i * 0.2}s infinite`,
+                    }}
+                  />
+                ))}
               </div>
             </div>
           )}
@@ -476,8 +481,9 @@ export default function Chat() {
         <div
           style={{
             display: 'flex',
-            gap: '8px',
-            padding: '12px 24px',
+            gap: '6px',
+            padding: isMobile ? '8px 12px' : '12px 24px',
+            overflow: 'auto',
             borderTop: '1px solid #f3f4f6',
           }}
         >
@@ -486,23 +492,16 @@ export default function Chat() {
               key={reply}
               onClick={() => setMessageInput(reply)}
               style={{
-                padding: '6px 14px',
-                borderRadius: '20px',
+                padding: '6px 12px',
+                borderRadius: '16px',
                 border: '1px solid #bbf7d0',
                 background: '#f0fdf4',
                 color: '#16a34a',
-                fontSize: '12px',
+                fontSize: '11px',
                 fontWeight: 500,
                 cursor: 'pointer',
+                whiteSpace: 'nowrap',
                 transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#22c55e';
-                e.currentTarget.style.color = '#ffffff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#f0fdf4';
-                e.currentTarget.style.color = '#16a34a';
               }}
             >
               {reply}
@@ -515,26 +514,28 @@ export default function Chat() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            padding: '16px 24px',
+            gap: isMobile ? '8px' : '12px',
+            padding: isMobile ? '12px 16px' : '16px 24px',
             borderTop: '1px solid #f3f4f6',
           }}
         >
-          <button
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '8px',
-              border: 'none',
-              background: '#f3f4f6',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
-          >
-            <Paperclip size={18} color="#6b7280" />
-          </button>
+          {!isMobile && (
+            <button
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '8px',
+                border: 'none',
+                background: '#f3f4f6',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              <Paperclip size={18} color="#6b7280" />
+            </button>
+          )}
           <div
             style={{
               flex: 1,
@@ -542,7 +543,7 @@ export default function Chat() {
               alignItems: 'center',
               background: '#f3f4f6',
               borderRadius: '10px',
-              padding: '4px 16px',
+              padding: '4px 12px',
             }}
           >
             <input
@@ -561,22 +562,24 @@ export default function Chat() {
                 outline: 'none',
               }}
             />
-            <button
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '4px',
-              }}
-            >
-              <Smile size={20} color="#9ca3af" />
-            </button>
+            {!isMobile && (
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '4px',
+                }}
+              >
+                <Smile size={20} color="#9ca3af" />
+              </button>
+            )}
           </div>
           <button
             onClick={sendMessage}
             style={{
-              width: '42px',
-              height: '42px',
+              width: isMobile ? '38px' : '42px',
+              height: isMobile ? '38px' : '42px',
               borderRadius: '10px',
               border: 'none',
               background: messageInput.trim()
@@ -589,67 +592,69 @@ export default function Chat() {
               transition: 'all 0.2s',
             }}
           >
-            <Send size={18} color="#ffffff" />
+            <Send size={isMobile ? 16 : 18} color="#ffffff" />
           </button>
         </div>
       </div>
 
-      {/* Customer Info Sidebar */}
-      <div
-        style={{
-          width: '280px',
-          background: '#ffffff',
-          borderRadius: '0 14px 14px 0',
-          border: '1px solid #e5e7eb',
-          borderLeft: 'none',
-          padding: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <div
-            style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '16px',
-              background: 'linear-gradient(135deg, #22c55e, #16a34a)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: '22px',
-              fontWeight: 700,
-              margin: '0 auto 12px',
-            }}
-          >
-            {selectedChat.customerAvatar}
-          </div>
-          <h4 style={{ fontSize: '16px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
-            {selectedChat.customerName}
-          </h4>
-          <p style={{ fontSize: '12px', color: '#9ca3af', margin: '4px 0 0' }}>
-            Customer since Jan 2025
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {[
-            { label: 'Email', value: 'maria@example.com' },
-            { label: 'Phone', value: '+1 (555) 123-4567' },
-            { label: 'Language', value: selectedChat.language.toUpperCase() },
-            { label: 'Total Orders', value: '12' },
-            { label: 'Open Tickets', value: '1' },
-          ].map((info, i) => (
-            <div key={i}>
-              <p style={{ fontSize: '11px', color: '#9ca3af', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                {info.label}
-              </p>
-              <p style={{ fontSize: '14px', fontWeight: 500, color: '#374151', margin: 0 }}>{info.value}</p>
+      {/* Customer Info Sidebar - Hidden on mobile */}
+      {!isMobile && (
+        <div
+          style={{
+            width: '280px',
+            background: '#ffffff',
+            borderRadius: '0 14px 14px 0',
+            border: '1px solid #e5e7eb',
+            borderLeft: 'none',
+            padding: '24px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, #22c55e, #16a34a)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#ffffff',
+                fontSize: '22px',
+                fontWeight: 700,
+                margin: '0 auto 12px',
+              }}
+            >
+              {selectedChat.customerAvatar}
             </div>
-          ))}
+            <h4 style={{ fontSize: '16px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
+              {selectedChat.customerName}
+            </h4>
+            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '4px 0 0' }}>
+              Customer since Jan 2025
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { label: 'Email', value: 'maria@example.com' },
+              { label: 'Phone', value: '+1 (555) 123-4567' },
+              { label: 'Language', value: selectedChat.language.toUpperCase() },
+              { label: 'Total Orders', value: '12' },
+              { label: 'Open Tickets', value: '1' },
+            ].map((info, i) => (
+              <div key={i}>
+                <p style={{ fontSize: '11px', color: '#9ca3af', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  {info.label}
+                </p>
+                <p style={{ fontSize: '14px', fontWeight: 500, color: '#374151', margin: 0 }}>{info.value}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

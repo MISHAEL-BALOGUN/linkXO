@@ -19,6 +19,7 @@ export default function Settings() {
   const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('profile');
   const [showPassword, setShowPassword] = useState(false);
+  const isMobile = window.innerWidth < 768;
 
   const tabs = [
     { id: 'profile', label: 'Profile', icon: User },
@@ -31,54 +32,92 @@ export default function Settings() {
   return (
     <div style={{ animation: 'fadeIn 0.4s ease' }}>
       {/* Header */}
-      <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
+      <div style={{ marginBottom: isMobile ? '20px' : '32px' }}>
+        <h1 style={{ fontSize: isMobile ? '22px' : '28px', fontWeight: 700, color: '#1f2937', margin: 0 }}>
           {t('nav.settings')}
         </h1>
-        <p style={{ color: '#6b7280', fontSize: '14px', marginTop: '4px' }}>
+        <p style={{ color: '#6b7280', fontSize: isMobile ? '13px' : '14px', marginTop: '4px' }}>
           Manage your account settings and preferences.
         </p>
       </div>
 
-      <div style={{ display: 'flex', gap: '24px' }}>
+      <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '16px' : '24px' }}>
         {/* Tabs */}
-        <div
-          style={{
-            width: '240px',
-            background: '#ffffff',
-            borderRadius: '14px',
-            padding: '8px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-            border: '1px solid #f3f4f6',
-            height: 'fit-content',
-          }}
-        >
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '12px 14px',
-                borderRadius: '10px',
-                border: 'none',
-                background: activeTab === tab.id ? '#f0fdf4' : 'transparent',
-                color: activeTab === tab.id ? '#16a34a' : '#6b7280',
-                fontSize: '14px',
-                fontWeight: activeTab === tab.id ? 600 : 400,
-                cursor: 'pointer',
-                textAlign: 'left',
-                transition: 'all 0.2s',
-              }}
-            >
-              <tab.icon size={18} />
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        {isMobile ? (
+          <div
+            style={{
+              display: 'flex',
+              overflowX: 'auto',
+              gap: '8px',
+              paddingBottom: '4px',
+              scrollbarWidth: 'none',
+            }}
+          >
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 16px',
+                  borderRadius: '10px',
+                  border: activeTab === tab.id ? '2px solid #22c55e' : '1px solid #e5e7eb',
+                  background: activeTab === tab.id ? '#f0fdf4' : '#ffffff',
+                  color: activeTab === tab.id ? '#16a34a' : '#6b7280',
+                  fontSize: '13px',
+                  fontWeight: activeTab === tab.id ? 600 : 400,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s',
+                  flexShrink: 0,
+                }}
+              >
+                <tab.icon size={16} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div
+            style={{
+              width: '240px',
+              background: '#ffffff',
+              borderRadius: '14px',
+              padding: '8px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              border: '1px solid #f3f4f6',
+              height: 'fit-content',
+            }}
+          >
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '12px 14px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: activeTab === tab.id ? '#f0fdf4' : 'transparent',
+                  color: activeTab === tab.id ? '#16a34a' : '#6b7280',
+                  fontSize: '14px',
+                  fontWeight: activeTab === tab.id ? 600 : 400,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <tab.icon size={18} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Content */}
         <div
@@ -86,32 +125,33 @@ export default function Settings() {
             flex: 1,
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '32px',
+            padding: isMobile ? '20px' : '32px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
         >
           {activeTab === 'profile' && (
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#1f2937', marginBottom: '24px' }}>
+              <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 600, color: '#1f2937', marginBottom: isMobile ? '16px' : '24px' }}>
                 Profile Settings
               </h3>
 
               {/* Avatar */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '14px' : '20px', marginBottom: isMobile ? '24px' : '32px' }}>
                 <div
                   style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '16px',
+                    width: isMobile ? '64px' : '80px',
+                    height: isMobile ? '64px' : '80px',
+                    borderRadius: isMobile ? '12px' : '16px',
                     background: 'linear-gradient(135deg, #22c55e, #16a34a)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'relative',
+                    flexShrink: 0,
                   }}
                 >
-                  <User size={32} color="#ffffff" />
+                  <User size={isMobile ? 26 : 32} color="#ffffff" />
                   <button
                     style={{
                       position: 'absolute',
@@ -132,7 +172,7 @@ export default function Settings() {
                   </button>
                 </div>
                 <div>
-                  <p style={{ fontSize: '16px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
+                  <p style={{ fontSize: isMobile ? '15px' : '16px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
                     Admin User
                   </p>
                   <p style={{ fontSize: '13px', color: '#9ca3af', margin: '4px 0 0' }}>
@@ -142,7 +182,7 @@ export default function Settings() {
               </div>
 
               {/* Form Fields */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '16px' : '20px' }}>
                 {[
                   { label: 'First Name', value: 'Admin', icon: User },
                   { label: 'Last Name', value: 'User', icon: User },
@@ -183,6 +223,7 @@ export default function Settings() {
                           fontSize: '14px',
                           color: '#374151',
                           outline: 'none',
+                          minWidth: 0,
                         }}
                       />
                     </div>
@@ -203,7 +244,7 @@ export default function Settings() {
                   fontSize: '14px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  marginTop: '24px',
+                  marginTop: isMobile ? '20px' : '24px',
                 }}
               >
                 <Save size={16} />
@@ -214,11 +255,11 @@ export default function Settings() {
 
           {activeTab === 'security' && (
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#1f2937', marginBottom: '24px' }}>
+              <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 600, color: '#1f2937', marginBottom: isMobile ? '16px' : '24px' }}>
                 Security Settings
               </h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: isMobile ? '100%' : '480px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '8px' }}>
                     Current Password
@@ -245,6 +286,7 @@ export default function Settings() {
                         fontSize: '14px',
                         color: '#374151',
                         outline: 'none',
+                        minWidth: 0,
                       }}
                     />
                     <button
@@ -286,6 +328,7 @@ export default function Settings() {
                         fontSize: '14px',
                         color: '#374151',
                         outline: 'none',
+                        minWidth: 0,
                       }}
                     />
                   </div>
@@ -317,6 +360,7 @@ export default function Settings() {
                         fontSize: '14px',
                         color: '#374151',
                         outline: 'none',
+                        minWidth: 0,
                       }}
                     />
                   </div>
@@ -347,7 +391,7 @@ export default function Settings() {
 
           {activeTab === 'language' && (
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#1f2937', marginBottom: '24px' }}>
+              <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 600, color: '#1f2937', marginBottom: isMobile ? '16px' : '24px' }}>
                 Language Settings
               </h3>
 
@@ -355,7 +399,7 @@ export default function Settings() {
                 Select your preferred language for the interface.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)', gap: '12px' }}>
                 {[
                   { code: 'en', name: 'English', flag: '🇺🇸' },
                   { code: 'es', name: 'Spanish', flag: '🇪🇸' },
@@ -374,7 +418,7 @@ export default function Settings() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '12px',
-                      padding: '14px 16px',
+                      padding: isMobile ? '12px' : '14px 16px',
                       borderRadius: '10px',
                       border: i18n.language === lang.code ? '2px solid #22c55e' : '1px solid #e5e7eb',
                       background: i18n.language === lang.code ? '#f0fdf4' : '#ffffff',
@@ -383,7 +427,7 @@ export default function Settings() {
                       textAlign: 'left',
                     }}
                   >
-                    <span style={{ fontSize: '24px' }}>{lang.flag}</span>
+                    <span style={{ fontSize: isMobile ? '20px' : '24px' }}>{lang.flag}</span>
                     <span style={{ fontSize: '14px', fontWeight: 500, color: '#1f2937' }}>{lang.name}</span>
                   </button>
                 ))}
@@ -393,7 +437,7 @@ export default function Settings() {
 
           {activeTab === 'notifications' && (
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#1f2937', marginBottom: '24px' }}>
+              <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 600, color: '#1f2937', marginBottom: isMobile ? '16px' : '24px' }}>
                 Notification Settings
               </h3>
 
@@ -411,13 +455,13 @@ export default function Settings() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      padding: '16px',
+                      padding: isMobile ? '14px' : '16px',
                       borderRadius: '10px',
                       border: '1px solid #f3f4f6',
                       background: '#f9fafb',
                     }}
                   >
-                    <div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ fontSize: '14px', fontWeight: 500, color: '#1f2937', margin: 0 }}>
                         {item.label}
                       </p>
@@ -434,6 +478,8 @@ export default function Settings() {
                         position: 'relative',
                         cursor: 'pointer',
                         transition: 'background 0.2s',
+                        flexShrink: 0,
+                        marginLeft: '12px',
                       }}
                     >
                       <div
@@ -458,7 +504,7 @@ export default function Settings() {
 
           {activeTab === 'appearance' && (
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#1f2937', marginBottom: '24px' }}>
+              <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 600, color: '#1f2937', marginBottom: isMobile ? '16px' : '24px' }}>
                 Appearance Settings
               </h3>
 
@@ -467,7 +513,7 @@ export default function Settings() {
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '12px' }}>
                     Theme
                   </label>
-                  <div style={{ display: 'flex', gap: '12px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                     {[
                       { name: 'Light', bg: '#ffffff', border: '#22c55e' },
                       { name: 'Dark', bg: '#1f2937', border: '#6b7280' },
@@ -496,7 +542,7 @@ export default function Settings() {
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '12px' }}>
                     Primary Color
                   </label>
-                  <div style={{ display: 'flex', gap: '12px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                     {['#22c55e', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'].map((color) => (
                       <button
                         key={color}

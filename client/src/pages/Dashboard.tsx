@@ -14,6 +14,8 @@ import { dashboardStats } from '../data/mockData';
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const isMobile = window.innerWidth < 768;
+  const isTablet = window.innerWidth < 1024;
 
   const statCards = [
     {
@@ -57,10 +59,10 @@ export default function Dashboard() {
   return (
     <div style={{ animation: 'fadeIn 0.4s ease' }}>
       {/* Page Header */}
-      <div style={{ marginBottom: '32px' }}>
+      <div style={{ marginBottom: isMobile ? '20px' : '32px' }}>
         <h1
           style={{
-            fontSize: '28px',
+            fontSize: isMobile ? '22px' : '28px',
             fontWeight: 700,
             color: '#1f2937',
             margin: 0,
@@ -77,9 +79,9 @@ export default function Dashboard() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '20px',
-          marginBottom: '32px',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: isMobile ? '12px' : '20px',
+          marginBottom: isMobile ? '20px' : '32px',
         }}
       >
         {statCards.map((stat, i) => (
@@ -88,18 +90,10 @@ export default function Dashboard() {
             style={{
               background: '#ffffff',
               borderRadius: '14px',
-              padding: '24px',
+              padding: isMobile ? '16px' : '24px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
               border: '1px solid #f3f4f6',
               transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.08)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.06)';
             }}
           >
             <div
@@ -107,13 +101,13 @@ export default function Dashboard() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: '16px',
+                marginBottom: isMobile ? '10px' : '16px',
               }}
             >
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
+                  width: isMobile ? '36px' : '44px',
+                  height: isMobile ? '36px' : '44px',
                   borderRadius: '12px',
                   background: stat.bg,
                   display: 'flex',
@@ -121,7 +115,7 @@ export default function Dashboard() {
                   justifyContent: 'center',
                 }}
               >
-                <stat.icon size={22} color={stat.color} />
+                <stat.icon size={isMobile ? 18 : 22} color={stat.color} />
               </div>
               <div
                 style={{
@@ -143,7 +137,7 @@ export default function Dashboard() {
             </div>
             <p
               style={{
-                fontSize: '28px',
+                fontSize: isMobile ? '22px' : '28px',
                 fontWeight: 700,
                 color: '#1f2937',
                 margin: 0,
@@ -168,9 +162,9 @@ export default function Dashboard() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '24px',
-          marginBottom: '32px',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '16px' : '24px',
+          marginBottom: isMobile ? '20px' : '32px',
         }}
       >
         {/* Chat Volume Chart */}
@@ -178,7 +172,7 @@ export default function Dashboard() {
           style={{
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
@@ -200,8 +194,8 @@ export default function Dashboard() {
             style={{
               display: 'flex',
               alignItems: 'flex-end',
-              gap: '8px',
-              height: '160px',
+              gap: isMobile ? '4px' : '8px',
+              height: isMobile ? '120px' : '160px',
             }}
           >
             {dashboardStats.chatVolume.map((item, i) => (
@@ -212,20 +206,22 @@ export default function Dashboard() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '4px',
                 }}
               >
                 <div
                   style={{
                     width: '100%',
-                    height: `${(item.count / 60) * 120}px`,
+                    height: `${(item.count / 60) * (isMobile ? 80 : 120)}px`,
                     background: `linear-gradient(180deg, #22c55e 0%, #16a34a 100%)`,
-                    borderRadius: '6px 6px 2px 2px',
+                    borderRadius: '4px 4px 2px 2px',
                     transition: 'height 0.3s ease',
                     minHeight: '4px',
                   }}
                 />
-                <span style={{ fontSize: '10px', color: '#9ca3af' }}>{item.hour}</span>
+                {!isMobile && (
+                  <span style={{ fontSize: '10px', color: '#9ca3af' }}>{item.hour}</span>
+                )}
               </div>
             ))}
           </div>
@@ -236,7 +232,7 @@ export default function Dashboard() {
           style={{
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
@@ -300,8 +296,8 @@ export default function Dashboard() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '24px',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '16px' : '24px',
         }}
       >
         {/* Recent Activity */}
@@ -309,7 +305,7 @@ export default function Dashboard() {
           style={{
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
@@ -329,12 +325,6 @@ export default function Dashboard() {
                   borderRadius: '10px',
                   background: '#f9fafb',
                   transition: 'background 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#f0fdf4';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#f9fafb';
                 }}
               >
                 <div
@@ -362,7 +352,7 @@ export default function Dashboard() {
                     <ThumbsUp size={16} color="#2563eb" />
                   )}
                 </div>
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: '13px', fontWeight: 500, color: '#374151', margin: 0 }}>
                     {activity.action}
                   </p>
@@ -380,7 +370,7 @@ export default function Dashboard() {
           style={{
             background: '#ffffff',
             borderRadius: '14px',
-            padding: '24px',
+            padding: isMobile ? '16px' : '24px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
             border: '1px solid #f3f4f6',
           }}
@@ -389,49 +379,43 @@ export default function Dashboard() {
             Top Issues
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {dashboardStats.topIssues.map((issue, i) => (
-              <div key={i}>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginBottom: '6px',
-                  }}
-                >
-                  <span style={{ fontSize: '13px', fontWeight: 500, color: '#374151' }}>
-                    {issue.issue}
-                  </span>
-                  <span style={{ fontSize: '13px', color: '#6b7280' }}>{issue.count}</span>
-                </div>
-                <div
-                  style={{
-                    width: '100%',
-                    height: '8px',
-                    background: '#f3f4f6',
-                    borderRadius: '4px',
-                    overflow: 'hidden',
-                  }}
-                >
+            {dashboardStats.topIssues.map((issue, i) => {
+              const colors = ['#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#6b7280'];
+              return (
+                <div key={i}>
                   <div
                     style={{
-                      width: `${issue.percentage}%`,
-                      height: '100%',
-                      background:
-                        i === 0
-                          ? '#ef4444'
-                          : i === 1
-                            ? '#f59e0b'
-                            : i === 2
-                              ? '#3b82f6'
-                              : i === 3
-                                ? '#8b5cf6'
-                                : '#6b7280',
-                      borderRadius: '4px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      marginBottom: '6px',
                     }}
-                  />
+                  >
+                    <span style={{ fontSize: '13px', fontWeight: 500, color: '#374151' }}>
+                      {issue.issue}
+                    </span>
+                    <span style={{ fontSize: '13px', color: '#6b7280' }}>{issue.count}</span>
+                  </div>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '8px',
+                      background: '#f3f4f6',
+                      borderRadius: '4px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${issue.percentage}%`,
+                        height: '100%',
+                        background: colors[i],
+                        borderRadius: '4px',
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
