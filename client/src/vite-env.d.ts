@@ -1,0 +1,57 @@
+/// <reference types="vite/client" />
+
+declare module 'lucide-react' {
+  import { ComponentType, SVGProps } from 'react';
+  export const LayoutDashboard: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const MessageSquare: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const BookOpen: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Ticket: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const BarChart3: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Settings: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Globe: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Bot: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ChevronLeft: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ChevronRight: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const LogOut: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Bell: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Search: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const User: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ChevronDown: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Send: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Paperclip: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Smile: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const MoreVertical: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Phone: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Video: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const UserPlus: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Headphones: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const X: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Minimize2: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Eye: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const EyeOff: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Lock: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Mail: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Camera: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Phone: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Plus: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Filter: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Clock: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Tag: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ExternalLink: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const AlertCircle: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const CheckCircle: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Circle: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const XCircle: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const FileText: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ThumbsUp: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const TrendingUp: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ArrowUpRight: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const ArrowDownRight: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Activity: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Users: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Download: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const PieChart: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Shield: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Palette: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+  export const Save: ComponentType<SVGProps<SVGSVGElement> & { size?: number; color?: string }>;
+}
