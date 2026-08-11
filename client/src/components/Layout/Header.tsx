@@ -1,11 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { Bell, Search, User, ChevronDown } from 'lucide-react';
+import { Bell, Search, User, ChevronDown, Menu } from 'lucide-react';
 import { useState } from 'react';
 
-export default function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+export default function Header({ onMenuClick }: HeaderProps) {
   const { t } = useTranslation();
   const [showNotifications, setShowNotifications] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const isMobile = window.innerWidth < 768;
 
   return (
     <header
@@ -16,67 +21,122 @@ export default function Header() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 32px',
+        padding: isMobile ? '0 16px' : '0 32px',
         position: 'sticky',
         top: 0,
         zIndex: 50,
       }}
     >
-      {/* Search */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: '#f3f4f6',
-          borderRadius: '10px',
-          padding: '8px 16px',
-          width: '360px',
-        }}
-      >
-        <Search size={18} color="#9ca3af" />
-        <input
-          type="text"
-          placeholder="Search conversations, tickets, articles..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+      {/* Left Side */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Mobile Menu Button */}
+        <button
+          onClick={onMenuClick}
           style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '10px',
             border: 'none',
-            background: 'transparent',
-            fontSize: '14px',
-            color: '#374151',
-            width: '100%',
-            outline: 'none',
+            background: '#f3f4f6',
+            display: isMobile ? 'flex' : 'none',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
           }}
-        />
+        >
+          <Menu size={20} color="#374151" />
+        </button>
+
+        {/* Search */}
+        {!isMobile && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#f3f4f6',
+              borderRadius: '10px',
+              padding: '8px 16px',
+              width: '360px',
+            }}
+          >
+            <Search size={18} color="#9ca3af" />
+            <input
+              type="text"
+              placeholder="Search conversations, tickets, articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                border: 'none',
+                background: 'transparent',
+                fontSize: '14px',
+                color: '#374151',
+                width: '100%',
+                outline: 'none',
+              }}
+            />
+          </div>
+        )}
+
+        {isMobile && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#f3f4f6',
+              borderRadius: '10px',
+              padding: '8px 12px',
+              flex: 1,
+            }}
+          >
+            <Search size={18} color="#9ca3af" />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                border: 'none',
+                background: 'transparent',
+                fontSize: '14px',
+                color: '#374151',
+                width: '100%',
+                outline: 'none',
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Right Side */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '16px' }}>
         {/* Status Badge */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '6px 12px',
-            background: '#f0fdf4',
-            borderRadius: '20px',
-            border: '1px solid #bbf7d0',
-          }}
-        >
+        {!isMobile && (
           <div
             style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: '#22c55e',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 12px',
+              background: '#f0fdf4',
+              borderRadius: '20px',
+              border: '1px solid #bbf7d0',
             }}
-          />
-          <span style={{ fontSize: '13px', color: '#166534', fontWeight: 500 }}>
-            {t('chat.online')}
-          </span>
-        </div>
+          >
+            <div
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: '#22c55e',
+              }}
+            />
+            <span style={{ fontSize: '13px', color: '#166534', fontWeight: 500 }}>
+              {t('chat.online')}
+            </span>
+          </div>
+        )}
 
         {/* Notifications */}
         <div style={{ position: 'relative' }}>
@@ -116,7 +176,7 @@ export default function Header() {
                 position: 'absolute',
                 top: '48px',
                 right: 0,
-                width: '320px',
+                width: isMobile ? '280px' : '320px',
                 background: '#ffffff',
                 borderRadius: '12px',
                 boxShadow: '0 10px 40px rgba(0,0,0,0.12)',
@@ -169,7 +229,7 @@ export default function Header() {
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
-            padding: '6px 12px 6px 6px',
+            padding: isMobile ? '6px' : '6px 12px 6px 6px',
             background: '#f3f4f6',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -191,13 +251,15 @@ export default function Header() {
           >
             <User size={16} />
           </div>
-          <div>
-            <p style={{ fontSize: '13px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
-              Admin User
-            </p>
-            <p style={{ fontSize: '11px', color: '#9ca3af', margin: 0 }}>Support Manager</p>
-          </div>
-          <ChevronDown size={14} color="#9ca3af" />
+          {!isMobile && (
+            <div>
+              <p style={{ fontSize: '13px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
+                Admin User
+              </p>
+              <p style={{ fontSize: '11px', color: '#9ca3af', margin: 0 }}>Support Manager</p>
+            </div>
+          )}
+          {!isMobile && <ChevronDown size={14} color="#9ca3af" />}
         </div>
       </div>
     </header>

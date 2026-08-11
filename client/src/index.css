@@ -119,3 +119,77 @@ input, textarea, select {
 .animate-slideIn {
   animation: slideIn 0.3s ease forwards;
 }
+
+/* Responsive Utilities */
+.responsive-hide {
+  display: block;
+}
+
+.responsive-show {
+  display: none;
+}
+
+/* Mobile Menu Overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 90;
+}
+
+/* Responsive Grid */
+.grid-responsive-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.grid-responsive-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid-responsive-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .grid-responsive-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-responsive-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-responsive-4,
+  .grid-responsive-3,
+  .grid-responsive-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .responsive-hide {
+    display: none !important;
+  }
+
+  .responsive-show {
+    display: block !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-responsive-4,
+  .grid-responsive-3,
+  .grid-responsive-2 {
+    grid-template-columns: 1fr;
+  }
+}
