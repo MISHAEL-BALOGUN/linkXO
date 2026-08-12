@@ -87,6 +87,31 @@ const resources = {
         greeting: 'Hello! I am your AI assistant. How can I help you today?',
         placeholder: 'Ask me anything...',
         title: 'AI Support Chat',
+        responses: {
+          greeting: [
+            "Hello! I'm here to help you with any questions you might have.",
+            "Welcome! How can I assist you today?",
+            "Hi there! What can I help you with?",
+          ],
+          billing: [
+            "For billing inquiries, I can help you with:\n• Understanding your invoice\n• Updating payment methods\n• Requesting a refund\n• Subscription changes\n\nWhat specific billing question do you have?",
+            "I'd be happy to help with billing. Could you tell me more about your specific issue?",
+          ],
+          shipping: [
+            "For shipping questions:\n• Track your order using your order ID\n• Standard shipping takes 5-7 business days\n• Express shipping takes 2-3 business days\n\nDo you have a specific order you need help with?",
+          ],
+          account: [
+            "For account-related issues:\n• Password reset: Click 'Forgot Password' on login\n• Profile updates: Go to Settings > Profile\n• Account deletion: Contact our privacy team\n\nWhat account issue are you experiencing?",
+          ],
+          technical: [
+            "For technical support:\n• Clear your browser cache and cookies\n• Try a different browser\n• Check your internet connection\n• Disable browser extensions\n\nIf the issue persists, I can connect you with a technical specialist.",
+          ],
+          default: [
+            "I understand you need help. Could you provide more details about your issue so I can assist you better?",
+            "Let me help you with that. Can you tell me more about what you're experiencing?",
+            "I'm here to help! Please describe the issue you're facing and I'll do my best to resolve it.",
+          ],
+        },
       },
     },
   },
@@ -175,6 +200,31 @@ const resources = {
         greeting: '¡Hola! Soy tu asistente de IA. ¿Cómo puedo ayudarte hoy?',
         placeholder: 'Pregúntame lo que sea...',
         title: 'Chat de Soporte IA',
+        responses: {
+          greeting: [
+            "¡Hola! Estoy aquí para ayudarte con cualquier pregunta que tengas.",
+            "¡Bienvenido! ¿Cómo puedo asistirte hoy?",
+            "¡Hola! ¿En qué puedo ayudarte?",
+          ],
+          billing: [
+            "Para consultas de facturación, puedo ayudarte con:\n• Entender tu factura\n• Actualizar métodos de pago\n• Solicitar un reembolso\n• Cambios de suscripción\n\n¿Qué pregunta específica de facturación tienes?",
+            "Me gustaría ayudarte con la facturación. ¿Podrías contarme más sobre tu problema específico?",
+          ],
+          shipping: [
+            "Para preguntas de envío:\n• Rastrea tu pedido usando tu ID de pedido\n• El envío estándar toma 5-7 días hábiles\n• El envío express toma 2-3 días hábiles\n\n¿Tienes un pedido específico con el que necesites ayuda?",
+          ],
+          account: [
+            "Para problemas relacionados con la cuenta:\n• Restablecer contraseña: Haz clic en 'Olvidé mi contraseña' en el login\n• Actualizaciones de perfil: Ve a Configuración > Perfil\n• Eliminación de cuenta: Contacta a nuestro equipo de privacidad\n\n¿Qué problema de cuenta estás experimentando?",
+          ],
+          technical: [
+            "Para soporte técnico:\n• Limpia la caché y cookies de tu navegador\n• Prueba con otro navegador\n• Verifica tu conexión a internet\n• Deshabilita extensiones del navegador\n\nSi el problema persiste, puedo conectarte con un especialista técnico.",
+          ],
+          default: [
+            "Entiendo que necesitas ayuda. ¿Podrías proporcionar más detalles sobre tu problema para poder asistirte mejor?",
+            "Déjame ayudarte con eso. ¿Puedes contarme más sobre lo que estás experimentando?",
+            "¡Estoy aquí para ayudar! Por favor describe el problema que enfrentas y haré lo mejor para resolverlo.",
+          ],
+        },
       },
     },
   },
@@ -263,6 +313,31 @@ const resources = {
         greeting: 'Bonjour! Je suis votre assistant IA. Comment puis-je vous aider aujourd\'hui?',
         placeholder: 'Demandez-moi n\'importe quoi...',
         title: 'Chat de Support IA',
+        responses: {
+          greeting: [
+            "Bonjour! Je suis là pour vous aider avec toutes vos questions.",
+            "Bienvenue! Comment puis-je vous aider aujourd'hui?",
+            "Salut! En quoi puis-je vous être utile?",
+          ],
+          billing: [
+            "Pour les questions de facturation, je peux vous aider avec:\n• Comprendre votre facture\n• Mettre à jour vos méthodes de paiement\n• Demander un remboursement\n• Changements d'abonnement\n\nQuelle question de facturation spécifique avez-vous?",
+            "Je serais ravi de vous aider avec la facturation. Pourriez-vous m'en dire plus sur votre problème spécifique?",
+          ],
+          shipping: [
+            "Pour les questions d'expédition:\n• Suivez votre commande avec votre ID de commande\n• L'expédition standard prend 5-7 jours ouvrés\n• L'expédition express prend 2-3 jours ouvrés\n\nAvez-vous une commande spécifique dont vous avez besoin d'aide?",
+          ],
+          account: [
+            "Pour les problèmes liés au compte:\n• Réinitialisation du mot de passe: Cliquez sur 'Mot de passe oublié' à la connexion\n• Mise à jour du profil: Allez dans Paramètres > Profil\n• Suppression du compte: Contactez notre équipe confidentialité\n\nQuel problème de compte rencontrez-vous?",
+          ],
+          technical: [
+            "Pour le support technique:\n• Videz le cache et les cookies de votre navigateur\n• Essayez un autre navigateur\n• Vérifiez votre connexion internet\n• Désactivez les extensions du navigateur\n\nSi le problème persiste, je peux vous connecter avec un spécialiste technique.",
+          ],
+          default: [
+            "Je comprends que vous avez besoin d'aide. Pourriez-vous fournir plus de détails sur votre problème pour que je puisse mieux vous aider?",
+            "Laissez-moi vous aider avec cela. Pouvez-vous m'en dire plus sur ce que vous rencontrez?",
+            "Je suis là pour aider! Veuillez décrire le problème que vous rencontrez et je ferai de mon mieux pour le résoudre.",
+          ],
+        },
       },
     },
   },

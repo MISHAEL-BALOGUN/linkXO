@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MessageSquare, X, Send, Bot, Globe, Minimize2 } from 'lucide-react';
-import { botResponses, languages } from '../../data/mockData';
+import { languages } from '../../data/mockData';
 
 interface Message {
   id: number;
@@ -48,6 +48,15 @@ export default function ChatWidget() {
     return 'default';
   };
 
+  const getBotResponse = (category: string): string => {
+    const responses = t(`chatbot.responses.${category}`, { returnObjects: true }) as string[];
+    if (responses && responses.length > 0) {
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+    const defaultResponses = t('chatbot.responses.default', { returnObjects: true }) as string[];
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+  };
+
   const sendMessage = () => {
     if (!inputValue.trim()) return;
 
@@ -64,8 +73,7 @@ export default function ChatWidget() {
     setIsTyping(true);
     setTimeout(() => {
       const category = detectCategory(inputValue);
-      const responses = botResponses[category] || botResponses.default;
-      const response = responses[Math.floor(Math.random() * responses.length)];
+      const response = getBotResponse(category);
 
       setMessages((prev) => [
         ...prev,

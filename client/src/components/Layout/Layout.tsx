@@ -2,9 +2,11 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import { useResponsive } from '../../hooks/useResponsive';
 
 export default function Layout() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const { isMobile } = useResponsive();
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
@@ -17,7 +19,7 @@ export default function Layout() {
         <main
           style={{
             flex: 1,
-            padding: window.innerWidth < 768 ? '16px' : '32px',
+            padding: isMobile ? '16px' : '32px',
             overflow: 'auto',
           }}
         >

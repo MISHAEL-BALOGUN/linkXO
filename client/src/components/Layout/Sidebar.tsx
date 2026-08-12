@@ -12,12 +12,11 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
-  Menu,
-  X,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { languages } from '../../data/mockData';
 import api from '../../services/api';
+import { useResponsive } from '../../hooks/useResponsive';
 
 interface SidebarProps {
   isMobileOpen: boolean;
@@ -30,18 +29,13 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const { isMobile, isDesktop } = useResponsive();
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
-        onMobileClose();
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [onMobileClose]);
+    if (isMobile) {
+      setCollapsed(false);
+    }
+  }, [isMobile]);
 
   const handleLogout = () => {
     api.logout();
@@ -58,15 +52,15 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
     { path: '/settings', icon: Settings, label: t('nav.settings') },
   ];
 
-  const changeLanguage = (langCode: string) => {
-    i18n.changeLanguage(langCode);
-    setShowLangMenu(false);
-  };
-
   const handleNavClick = () => {
     if (isMobile) {
       onMobileClose();
     }
+  };
+
+  const changeLanguage = (langCode: string) => {
+    i18n.changeLanguage(langCode);
+    setShowLangMenu(false);
   };
 
   const sidebarWidth = isMobile ? '260px' : collapsed ? '72px' : '260px';
@@ -76,8 +70,15 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
       {/* Mobile Overlay */}
       {isMobile && isMobileOpen && (
         <div
-          className="mobile-overlay"
-          style={{ display: 'block' }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 90,
+          }}
           onClick={onMobileClose}
         />
       )}
@@ -85,11 +86,12 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
       <aside
         style={{
           width: sidebarWidth,
+          minWidth: sidebarWidth,
           background: 'linear-gradient(180deg, #166534 0%, #15803d 50%, #16a34a 100%)',
           color: '#ffffff',
           display: 'flex',
           flexDirection: 'column',
-          transition: 'width 0.3s ease, transform 0.3s ease',
+          transition: 'all 0.3s ease',
           position: isMobile ? 'fixed' : 'relative',
           top: 0,
           left: 0,
@@ -101,7 +103,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
         {/* Logo */}
         <div
           style={{
-            padding: collapsed && !isMobile ? '24px 12px' : '24px 20px',
+            padding: collapsed && isDesktop ? '24px 12px' : '24px 20px',
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
@@ -112,12 +114,12 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
             style={{
               width: '40px',
               height: '40px',
+              minWidth: '40px',
               background: '#ffffff',
               borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexShrink: 0,
             }}
           >
             <Bot size={24} color="#16a34a" />
@@ -133,7 +135,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav style={{ flex: 1, padding: '16px 8px' }}>
+        <nav style={{ flex: 1, padding: '16px 8px', overflowY: 'auto' }}>
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -145,7 +147,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  padding: collapsed && !isMobile ? '12px' : '12px 16px',
+                  padding: collapsed && isDesktop ? '12px' : '12px 16px',
                   borderRadius: '10px',
                   marginBottom: '4px',
                   background: isActive ? 'rgba(255,255,255,0.2)' : 'transparent',
@@ -153,7 +155,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
                   fontSize: '14px',
                   fontWeight: isActive ? 600 : 400,
                   transition: 'all 0.2s ease',
-                  justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
+                  justifyContent: collapsed && isDesktop ? 'center' : 'flex-start',
                   textDecoration: 'none',
                 }}
                 onMouseEnter={(e) => {
@@ -171,7 +173,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
         </nav>
 
         {/* Language Selector */}
-        <div style={{ padding: collapsed && !isMobile ? '8px' : '8px 16px 16px', position: 'relative' }}>
+        <div style={{ padding: collapsed && isDesktop ? '8px' : '8px 16px 16px', position: 'relative' }}>
           <button
             onClick={() => setShowLangMenu(!showLangMenu)}
             style={{
@@ -186,7 +188,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
               color: '#ffffff',
               fontSize: '13px',
               cursor: 'pointer',
-              justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
+              justifyContent: collapsed && isDesktop ? 'center' : 'flex-start',
             }}
           >
             <Globe size={18} />
@@ -200,8 +202,8 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
               style={{
                 position: 'absolute',
                 bottom: '60px',
-                left: collapsed && !isMobile ? '8px' : '16px',
-                right: collapsed && !isMobile ? '8px' : '16px',
+                left: collapsed && isDesktop ? '8px' : '8px',
+                right: collapsed && isDesktop ? '8px' : '8px',
                 background: '#ffffff',
                 borderRadius: '12px',
                 boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
@@ -228,13 +230,6 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
                     cursor: 'pointer',
                     textAlign: 'left',
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#f0fdf4';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (i18n.language !== lang.code)
-                      e.currentTarget.style.background = 'transparent';
-                  }}
                 >
                   <span>{lang.flag}</span>
                   <span>{lang.name}</span>
@@ -244,8 +239,8 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
           )}
         </div>
 
-        {/* Logout Button */}
-        <div style={{ padding: collapsed && !isMobile ? '8px' : '0 8px 8px' }}>
+        {/* Logout */}
+        <div style={{ padding: collapsed && isDesktop ? '8px' : '0 8px 8px' }}>
           <button
             onClick={handleLogout}
             style={{
@@ -260,16 +255,8 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
               color: '#fca5a5',
               fontSize: '13px',
               cursor: 'pointer',
-              justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
+              justifyContent: collapsed && isDesktop ? 'center' : 'flex-start',
               transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)';
-              e.currentTarget.style.color = '#ffffff';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
-              e.currentTarget.style.color = '#fca5a5';
             }}
           >
             <LogOut size={18} />
@@ -278,7 +265,7 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
         </div>
 
         {/* Collapse Button - Desktop only */}
-        {!isMobile && (
+        {isDesktop && (
           <button
             onClick={() => setCollapsed(!collapsed)}
             style={{
