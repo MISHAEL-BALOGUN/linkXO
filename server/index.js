@@ -15,18 +15,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'https://linkxo.vercel.app',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
+  origin: '*',
   credentials: true,
 }));
 app.use(express.json());
