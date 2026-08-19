@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import db from '../config/database.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'linkxo_secret_key_2026_final_year_project';
+const JWT_SECRET = process.env.JWT_SECRET || 'aicustomersupport_secret_key_2026_final_year_project';
 
 export function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];

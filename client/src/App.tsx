@@ -21,13 +21,13 @@ function App() {
   }, []);
 
   const checkAuth = async () => {
-    const token = localStorage.getItem('linkxo_token');
+    const token = localStorage.getItem('aicustomersupport_token');
     if (token) {
       try {
         await api.getMe();
         setIsAuthenticated(true);
       } catch {
-        localStorage.removeItem('linkxo_token');
+        localStorage.removeItem('aicustomersupport_token');
         setIsAuthenticated(false);
       }
     }

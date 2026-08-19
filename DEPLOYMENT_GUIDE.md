@@ -122,7 +122,7 @@ Render auto-deploys on push.
 ## Step 4: Test Everything
 
 1. Open `https://linkxo.vercel.app`
-2. Login with: `admin@linkxo.com` / `admin123`
+2. Login with: `admin@aicustomersupport.com` / `admin123`
 3. Test chat, tickets, knowledge base
 
 ---

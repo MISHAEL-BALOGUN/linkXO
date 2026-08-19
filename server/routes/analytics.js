@@ -171,7 +171,7 @@ router.get('/export', authenticateToken, (req, res) => {
     };
 
     res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Content-Disposition', 'attachment; filename=linkxo-report.json');
+    res.setHeader('Content-Disposition', 'attachment; filename=aicustomersupport-report.json');
     res.json(report);
   } catch (error) {
     console.error('Export error:', error);

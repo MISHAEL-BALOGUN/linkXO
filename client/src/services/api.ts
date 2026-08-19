@@ -4,15 +4,15 @@ class ApiService {
   private token: string | null;
 
   constructor() {
-    this.token = localStorage.getItem('linkxo_token');
+    this.token = localStorage.getItem('aicustomersupport_token');
   }
 
   setToken(token: string | null) {
     this.token = token;
     if (token) {
-      localStorage.setItem('linkxo_token', token);
+      localStorage.setItem('aicustomersupport_token', token);
     } else {
-      localStorage.removeItem('linkxo_token');
+      localStorage.removeItem('aicustomersupport_token');
     }
   }
 

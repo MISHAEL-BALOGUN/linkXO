@@ -110,24 +110,15 @@ export default function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
             borderBottom: '1px solid rgba(255,255,255,0.15)',
           }}
         >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              minWidth: '40px',
-              background: '#ffffff',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Bot size={24} color="#16a34a" />
-          </div>
+          <img
+            src="/lasu-logo.png"
+            alt="AICustomerSupport logo"
+            style={{ width: '40px', height: '40px', minWidth: '40px', borderRadius: '12px', objectFit: 'contain', background: '#ffffff' }}
+          />
           {(!collapsed || isMobile) && (
             <div>
               <h1 style={{ fontSize: '18px', fontWeight: 700, letterSpacing: '-0.5px' }}>
-                LinkXO
+                AICustomerSupport
               </h1>
               <p style={{ fontSize: '11px', opacity: 0.7, marginTop: '-2px' }}>AI Support</p>
             </div>

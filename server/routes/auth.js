@@ -6,7 +6,7 @@ import db from '../config/database.js';
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'linkxo_secret_key_2026_final_year_project';
+const JWT_SECRET = process.env.JWT_SECRET || 'aicustomersupport_secret_key_2026_final_year_project';
 
 // POST /api/auth/signup
 router.post('/signup', (req, res) => {

@@ -76,10 +76,21 @@ export default function Login() {
             marginBottom: '24px',
           }}
         >
-          <Bot size={isMobile ? 36 : 48} color="#16a34a" />
+          <img
+            src="/lasu-logo.png"
+            alt="AICustomerSupport logo"
+            style={{
+              width: isMobile ? '60px' : '80px',
+              height: isMobile ? '60px' : '80px',
+              borderRadius: isMobile ? '16px' : '20px',
+              objectFit: 'contain',
+              background: '#ffffff',
+              marginBottom: '24px',
+            }}
+          />
         </div>
         <h1 style={{ fontSize: isMobile ? '28px' : '36px', fontWeight: 800, margin: 0, letterSpacing: '-1px' }}>
-          LinkXO
+          AICustomerSupport
         </h1>
         <p style={{ fontSize: isMobile ? '14px' : '18px', opacity: 0.85, marginTop: '8px' }}>
           Intelligent Customer Support
@@ -350,7 +361,7 @@ export default function Login() {
                 Demo Credentials:
               </p>
               <p style={{ fontSize: '12px', color: '#15803d', margin: 0 }}>
-                Email: admin@linkxo.com
+                Email: admin@aicustomersupport.com
               </p>
               <p style={{ fontSize: '12px', color: '#15803d', margin: '2px 0 0' }}>
                 Password: admin123

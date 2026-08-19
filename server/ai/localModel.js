@@ -8,7 +8,7 @@ const intentPatterns = {
     responses: {
       en: [
         "Hello! I'm your AI support assistant. How can I help you today?",
-        "Hi there! Welcome to LinkXO support. What can I assist you with?",
+        "Hi there! Welcome to AICustomerSupport support. What can I assist you with?",
         "Hey! Great to see you. How may I help you today?",
       ],
       es: [
@@ -97,7 +97,7 @@ const intentPatterns = {
     ],
     responses: {
       en: [
-        "For account-related issues:\n\n• **Password reset**: Click 'Forgot Password' on the login page\n• **Profile updates**: Go to Settings > Profile\n• **Email change**: Contact support with identity verification\n• **Account deletion**: Email privacy@linkxo.com\n\nWhat account issue are you experiencing?",
+        "For account-related issues:\n\n• **Password reset**: Click 'Forgot Password' on the login page\n• **Profile updates**: Go to Settings > Profile\n• **Email change**: Contact support with identity verification\n• **Account deletion**: Email privacy@aicustomersupport.com\n\nWhat account issue are you experiencing?",
         "I can help with your account. Common issues include:\n- Locked accounts\n- Password resets\n- Profile updates\n- Email changes\n\nWhich one applies to you?",
       ],
       es: [
@@ -145,16 +145,16 @@ const intentPatterns = {
     ],
     responses: {
       en: [
-        "Goodbye! Thank you for contacting LinkXO support. Have a great day!",
+        "Goodbye! Thank you for contacting AICustomerSupport support. Have a great day!",
         "See you later! Feel free to reach out anytime you need help.",
         "Take care! We're here 24/7 if you need us again.",
       ],
       es: [
-        "¡Adiós! Gracias por contactar a LinkXO. ¡Que tengas un gran día!",
+        "¡Adiós! Gracias por contactar a AICustomerSupport. ¡Que tengas un gran día!",
         "¡Hasta luego! No dudes en escribirnos cuando necesites ayuda.",
       ],
       fr: [
-        "Au revoir! Merci d'avoir contacté LinkXO. Bonne journée!",
+        "Au revoir! Merci d'avoir contacté AICustomerSupport. Bonne journée!",
         "À bientôt! N'hésitez pas à nous contacter à tout moment.",
       ],
     },

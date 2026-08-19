@@ -186,7 +186,7 @@ export default function Settings() {
                 {[
                   { label: 'First Name', value: 'Admin', icon: User },
                   { label: 'Last Name', value: 'User', icon: User },
-                  { label: 'Email', value: 'admin@linkxo.com', icon: Mail },
+                  { label: 'Email', value: 'admin@aicustomersupport.com', icon: Mail },
                   { label: 'Phone', value: '+1 (555) 000-0000', icon: Phone },
                 ].map((field, i) => (
                   <div key={i}>

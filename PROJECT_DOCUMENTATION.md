@@ -1,4 +1,4 @@
-# LinkXO - Intelligent Customer Support Software with Multilingual AI Chatbot
+# AICustomerSupport - Intelligent Customer Support Software with Multilingual AI Chatbot
 
 ## Final Year Project Documentation
 
@@ -6,8 +6,8 @@
 
 ## 1. Project Overview
 
-### 1.1 What is LinkXO?
-LinkXO is a full-stack intelligent customer support platform that uses a **local AI model** to provide automated, multilingual customer service across **10 languages**. It enables businesses to handle customer inquiries 24/7 through an AI-powered chatbot, while giving support agents a complete dashboard to manage conversations, tickets, and knowledge base articles.
+### 1.1 What is AICustomerSupport?
+AICustomerSupport is a full-stack intelligent customer support platform that uses a **local AI model** to provide automated, multilingual customer service across **10 languages**. It enables businesses to handle customer inquiries 24/7 through an AI-powered chatbot, while giving support agents a complete dashboard to manage conversations, tickets, and knowledge base articles.
 
 ### 1.2 Problem Statement
 Traditional customer support systems face several challenges:
@@ -18,7 +18,7 @@ Traditional customer support systems face several challenges:
 - **Scalability**: Manual support doesn't scale with business growth
 
 ### 1.3 Solution
-LinkXO solves these problems by:
+AICustomerSupport solves these problems by:
 - Providing an **AI chatbot** that responds instantly in 10+ languages
 - Using a **local AI model** (no external API dependency) for privacy and cost savings
 - Offering a **unified dashboard** for agents to manage all customer interactions
@@ -311,7 +311,7 @@ Each AI response includes a confidence score (0.0 - 1.0) based on:
 ## 9. Project File Structure
 
 ```
-linkXO/
+AICustomerSupport/
 ├── server/                          # Backend
 │   ├── index.js                     # Express server entry
 │   ├── config/
@@ -428,7 +428,7 @@ npm run dev
 # http://localhost:5173
 
 # 5. Login with demo credentials
-# Email: admin@linkxo.com
+# Email: admin@AICustomerSupport.com
 # Password: admin123
 ```
 
@@ -495,5 +495,5 @@ npm run dev
 
 ---
 
-*LinkXO - Intelligent Customer Support Software*
+*AICustomerSupport - Intelligent Customer Support Software*
 *Final Year Project 2026*

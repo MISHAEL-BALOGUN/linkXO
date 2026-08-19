@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
 seedDatabase();
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 LinkXO Backend Server running on http://localhost:${PORT}`);
+  console.log(`\n🚀 AICustomerSupport Backend Server running on http://localhost:${PORT}`);
   console.log(`📊 API: http://localhost:${PORT}/api`);
   console.log(`💚 Health: http://localhost:${PORT}/api/health\n`);
   console.log('Available endpoints:');

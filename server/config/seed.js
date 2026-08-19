@@ -14,13 +14,13 @@ export function seedDatabase() {
   db.prepare(`
     INSERT INTO users (id, email, password, firstName, lastName, role, avatar, language)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(adminId, 'admin@linkxo.com', adminPassword, 'Admin', 'User', 'admin', 'AU', 'en');
+  `).run(adminId, 'admin@aicustomersupport.com', adminPassword, 'Admin', 'User', 'admin', 'AU', 'en');
 
   // Create agents
   const agents = [
-    { email: 'john@linkxo.com', firstName: 'John', lastName: 'Smith' },
-    { email: 'emily@linkxo.com', firstName: 'Emily', lastName: 'Davis' },
-    { email: 'mike@linkxo.com', firstName: 'Mike', lastName: 'Wilson' },
+    { email: 'john@aicustomersupport.com', firstName: 'John', lastName: 'Smith' },
+    { email: 'emily@aicustomersupport.com', firstName: 'Emily', lastName: 'Davis' },
+    { email: 'mike@aicustomersupport.com', firstName: 'Mike', lastName: 'Wilson' },
   ];
 
   const agentIds = [];
@@ -115,5 +115,5 @@ export function seedDatabase() {
   }
 
   console.log('Database seeded successfully!');
-  console.log('Admin login: admin@linkxo.com / admin123');
+  console.log('Admin login: admin@aicustomersupport.com / admin123');
 }
